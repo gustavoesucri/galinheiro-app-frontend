@@ -7,6 +7,12 @@ export const api = axios.create({
   timeout: 10000,
 })
 
+// Função auxiliar para extrair data da resposta do Axios
+export const resolveApiResponse = async (axiosPromise) => {
+  const response = await axiosPromise
+  return response.data
+}
+
 // ==================== GALPÕES ====================
 export const galpoesAPI = {
   getAll: () => api.get('/galpoes'),
