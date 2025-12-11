@@ -28,6 +28,10 @@ export const adicionarOvoThunk = (ovo) => async (dispatch) => {
       ...(ovo.observacoes && ovo.observacoes.trim() !== '' && { observacoes: ovo.observacoes })
     }
     
+    // Remover objetos nested (backend espera apenas IDs, não objetos completos)
+    delete ovoParaEnviar.galinha
+    delete ovoParaEnviar.ninho
+    
     // Remover campos que podem estar vazios
     if (!ovoParaEnviar.galinhaId) delete ovoParaEnviar.galinhaId
     if (!ovoParaEnviar.ninhoId) delete ovoParaEnviar.ninhoId
@@ -64,6 +68,16 @@ export const atualizarOvoThunk = (ovo) => async (dispatch) => {
       ...(ovo.ninhoId && ovo.ninhoId.trim() !== '' && { ninhoId: ovo.ninhoId }),
       ...(ovo.observacoes && ovo.observacoes.trim() !== '' && { observacoes: ovo.observacoes })
     }
+    
+    // Remover o id do payload (vai na URL, não no body)
+    delete ovoParaEnviar.id
+    
+    // Remover data (RN-014: Data de coleta é imutável, não deve ser enviada no PATCH)
+    delete ovoParaEnviar.data
+    
+    // Remover objetos nested (backend espera apenas IDs, não objetos completos)
+    delete ovoParaEnviar.galinha
+    delete ovoParaEnviar.ninho
     
     // Remover campos que podem estar vazios
     if (!ovoParaEnviar.galinhaId) delete ovoParaEnviar.galinhaId

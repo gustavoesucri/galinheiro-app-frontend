@@ -206,22 +206,12 @@ export default function GalinhasList() {
 
     // Verifica se há ovos hoje para esta galinha (com validação de data)
     const today = new Date()
+    const todayString = today.toISOString().split('T')[0] // yyyy-mm-dd
+    
     const eggsToday = ovos.filter(ovo => {
       if (ovo.galinhaId !== item.id) return false
-      
-      try {
-        const ovoDate = new Date(ovo.data)
-        // Verifica se a data é válida
-        if (isNaN(ovoDate.getTime())) return false
-        
-        return (
-          ovoDate.getFullYear() === today.getFullYear() &&
-          ovoDate.getMonth() === today.getMonth() &&
-          ovoDate.getDate() === today.getDate()
-        )
-      } catch (error) {
-        return false
-      }
+      // Compara strings diretamente (yyyy-mm-dd)
+      return ovo.data === todayString
     })
 
     const hasEggsToday = eggsToday.length > 0
