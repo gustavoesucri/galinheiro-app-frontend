@@ -28,7 +28,7 @@ export default function NinhosForm({ navigation, route }) {
   const [identificacaoErro, setIdentificacaoErro] = useState(null)
   const { ninho } = route.params || {}
 
-  const { control, handleSubmit, reset, setValue } = useForm({
+  const { control, handleSubmit, reset, setValue, clearErrors } = useForm({
     resolver: yupResolver(ninhosSchema),
     defaultValues: {
       identificacao: '',
@@ -101,6 +101,13 @@ export default function NinhosForm({ navigation, route }) {
     }
   }, [identificacao, galpaoId, ninhos, ninho])
 
+  // Limpar erro de ocupado quando galinha é selecionada
+  useEffect(() => {
+    if (ocupado && galinhaId) {
+      clearErrors('ocupado')
+    }
+  }, [ocupado, galinhaId, clearErrors])
+
   const onSubmit = (data) => {
     // Validação final
     if (identificacaoErro) {
@@ -110,7 +117,7 @@ export default function NinhosForm({ navigation, route }) {
 
     // RN-029: Garantir que ninho desocupado não tenha galinhaId
     if (!data.ocupado) {
-      data.galinhaId = null
+      data.galinhaId = ""
     }
 
     if (ninho) {
@@ -205,8 +212,8 @@ export default function NinhosForm({ navigation, route }) {
       <Controller
         control={control}
         name="ocupado"
-        render={({ field: { onChange, value } }) => (
-          <SwitchField label="Ocupado?" value={value} onValueChange={onChange} />
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
+          <SwitchField label="Ocupado?" value={value} onValueChange={onChange} error={error?.message} />
         )}
       />
 

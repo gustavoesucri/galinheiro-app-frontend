@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { useTema } from '../hooks/useTema'
 
-export default function Input({ label, value, onChangeText, keyboardType = 'default', style, fullWidth = true, ...props }) {
+export default function Input({ label, value, onChangeText, keyboardType = 'default', style, fullWidth = true, error, ...props }) {
   const tema = useTema()
   const { colors, typography } = tema
   
@@ -17,7 +17,7 @@ export default function Input({ label, value, onChangeText, keyboardType = 'defa
           !fullWidth && styles.inputCompact,
           { 
             backgroundColor: colors.surface, 
-            borderColor: colors.border,
+            borderColor: error ? colors.error : colors.border,
             color: colors.textPrimary 
           }
         ]}
@@ -25,6 +25,7 @@ export default function Input({ label, value, onChangeText, keyboardType = 'defa
         placeholderTextColor={colors.textSecondary}
         {...props}
       />
+      {error && <Text style={[styles.error, { color: colors.error }]}>{error}</Text>}
     </View>
   )
 }
@@ -49,5 +50,9 @@ const styles = StyleSheet.create({
   },
   inputCompact: {
     maxWidth: 200,
+  },
+  error: {
+    fontSize: 12,
+    marginTop: 4,
   },
 })

@@ -13,7 +13,12 @@ export const ninhosSchema = yup.object().shape({
   galpaoId: yup
     .string()
     .required('Selecione o galpão'),
-  ocupado: yup.boolean(),
+  ocupado: yup.boolean().test('galinha-requerida', 'Selecione uma galinha quando o ninho estiver ocupado', function(value) {
+    if (value === true) {
+      return !!this.parent.galinhaId
+    }
+    return true
+  }),
   ultima_limpeza: yup
     .date()
     .required('Data da última limpeza é obrigatória')
