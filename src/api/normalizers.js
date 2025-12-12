@@ -14,6 +14,11 @@ const customToApi = {
         ? null
         : record?.galinhaId,
   }),
+  medicoesAmbiente: (record) => ({
+    ...record,
+    temperatura: record?.temperatura ? parseFloat(record.temperatura) : null,
+    umidade: record?.umidade ? parseFloat(record.umidade) : null,
+  }),
 }
 
 const customFromApi = {
@@ -23,6 +28,11 @@ const customFromApi = {
       record?.galinhaId === null || record?.galinhaId === undefined
         ? 'desconhecida'
         : record?.galinhaId,
+  }),
+  medicoesAmbiente: (record) => ({
+    ...record,
+    temperatura: record?.temperatura ? parseFloat(record.temperatura) : null,
+    umidade: record?.umidade ? parseFloat(record.umidade) : null,
   }),
 }
 

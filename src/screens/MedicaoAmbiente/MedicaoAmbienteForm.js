@@ -220,7 +220,7 @@ export default function MedicaoAmbienteForm({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  container: { paddingBottom: 32 },
+  container: { },
   title: { marginBottom: 16 },
   ventilacaoRow: {
     flexDirection: 'row',

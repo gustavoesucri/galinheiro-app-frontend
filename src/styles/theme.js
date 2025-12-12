@@ -63,7 +63,7 @@ export const layout = {
   },
   formContainer: {
     backgroundColor: colors.background,
-    paddingBottom: 32,
+    padding: 16,
   },
   card: {
     backgroundColor: colors.surface,

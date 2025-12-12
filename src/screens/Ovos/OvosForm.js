@@ -345,9 +345,13 @@ export default function OvosForm({ navigation, route }) {
       </Button>
 
       {ovo && (
-        <DialogButton variant="delete" onPress={handleDelete}>
+        <Button 
+          onPress={handleDelete}
+          style={{ marginTop: 12, backgroundColor: colors.error }}
+          textColor={colors.white}
+        >
           Deletar Ovo
-        </DialogButton>
+        </Button>
       )}
 
       <Portal>
@@ -371,7 +375,7 @@ export default function OvosForm({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  container: { paddingBottom: 32 },
+  container: { },
   title: { marginBottom: 16 },
   errorContainer: {
     borderLeftWidth: 4,

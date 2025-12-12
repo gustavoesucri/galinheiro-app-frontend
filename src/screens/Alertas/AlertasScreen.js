@@ -321,7 +321,7 @@ export default function AlertasScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { paddingBottom: 32 },
+  container: { },
   title: { marginBottom: 24 },
   fieldRow: {
     flexDirection: 'row',
